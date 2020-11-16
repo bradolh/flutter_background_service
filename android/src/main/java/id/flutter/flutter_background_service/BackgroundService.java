@@ -137,12 +137,14 @@ public class BackgroundService extends Service implements MethodChannel.MethodCa
         if (isForegroundService(this)){
             if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
            
+                Intent intent = new Intent(context, getMainActivityClass(context)); 
+                PendingIntent contentIntent = PendingIntent.getActivity(this, 0, intent,PendingIntent.FLAG_UPDATE_CURRENT);  
 
                 NotificationCompat.Builder mBuilder = new NotificationCompat.Builder(this, "FOREGROUND_DEFAULT")
                         .setSmallIcon(R.drawable.ic_bg_service_small)
                         .setAutoCancel(true)
                         .setOngoing(true)
-                        .setContentTitle(notificationTitle)
+                        .setContentTitle(notificationTitle).setContentIntent(pendingIntent)
                         .setContentText(notificationContent);
 
                 startForeground(99778, mBuilder.build());
