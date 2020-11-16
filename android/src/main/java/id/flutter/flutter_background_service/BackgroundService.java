@@ -148,7 +148,8 @@ public class BackgroundService extends Service implements MethodChannel.MethodCa
     protected void updateNotificationInfo() {
         if (isForegroundService(this)){
             if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
-           
+
+                //test
                 Intent intent = new Intent(this, getMainActivityClass(this));
                 PendingIntent contentIntent = PendingIntent.getActivity(this, 0, intent,PendingIntent.FLAG_UPDATE_CURRENT);
 
