@@ -133,19 +133,30 @@ public class BackgroundService extends Service implements MethodChannel.MethodCa
         }
     }
 
+    private static Class getMainActivityClass(Context context) {
+        String packageName = context.getPackageName();
+        Intent launchIntent = context.getPackageManager().getLaunchIntentForPackage(packageName);
+        String className = launchIntent.getComponent().getClassName();
+        try {
+            return Class.forName(className);
+        } catch (ClassNotFoundException e) {
+            e.printStackTrace();
+            return null;
+        }
+    }
     protected void updateNotificationInfo() {
         if (isForegroundService(this)){
             if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
            
-                //Intent intent = new Intent(context, getMainActivityClass(context)); 
-               // PendingIntent contentIntent = PendingIntent.getActivity(this, 0, intent,PendingIntent.FLAG_UPDATE_CURRENT);  
+                Intent intent = new Intent(this, getMainActivityClass(this));
+                PendingIntent contentIntent = PendingIntent.getActivity(this, 0, intent,PendingIntent.FLAG_UPDATE_CURRENT);
 
                 NotificationCompat.Builder mBuilder = new NotificationCompat.Builder(this, "FOREGROUND_DEFAULT")
                         .setSmallIcon(R.drawable.launcher_icon)
                         .setAutoCancel(true)
                         .setOngoing(true)
                         .setContentTitle(notificationTitle)
-                        //.setContentIntent(pendingIntent)
+                        .setContentIntent(contentIntent)
                         .setContentText(notificationContent);
 
                 startForeground(99778, mBuilder.build());
