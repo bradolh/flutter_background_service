@@ -37,7 +37,7 @@ public class SwiftFlutterBackgroundServicePlugin: FlutterPluginAppLifeCycleDeleg
     }
     
     public func handle(_ call: FlutterMethodCall, result: @escaping FlutterResult) {
-        if (call.method == "BackgroundService.start"){
+        /*if (call.method == "BackgroundService.start"){
             let args = call.arguments as? Dictionary<String, Any>
             let callbackHandleID = args["handle"] as? NSNumber
             
@@ -55,7 +55,8 @@ public class SwiftFlutterBackgroundServicePlugin: FlutterPluginAppLifeCycleDeleg
             }
             
             result(true);
-        }
+        }*/
+        return
     }
     
     public func beginFetch(){
